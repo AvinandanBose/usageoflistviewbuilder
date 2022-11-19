@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+
+import 'NewPage.dart';
+
 class MyAppPage extends StatefulWidget {
   const MyAppPage({Key? key}) : super(key: key);
 
@@ -7,30 +10,56 @@ class MyAppPage extends StatefulWidget {
 }
 
 class _MyAppPageState extends State<MyAppPage> {
-  int count =0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Text Button Example'),
+        title: const Text('Alert Button Example'),
         centerTitle: true,
-
       ),
-      body:  Container(
-        height: 100,
-        width: 100,
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(colors: [Colors.yellow, Colors.grey]),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: const FittedBox(
-          fit: BoxFit.contain,
-          alignment: Alignment.center,
-          child: Text('My Name'),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Move To Page?'),
+              titlePadding: const EdgeInsets.only(left: 80,top: 30),
+              content: const Text('Are You Surely Want?'),
+          contentPadding:const EdgeInsets.only(left: 60,top: 30,bottom: 30),
+              actions: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('No'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
 
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => NewPage()),
+                        );
+                      },
+                      child: const Text('Yes'),
+                    ),
 
+                  ],
+                ),
+
+              ],
+            );
+          },
+        );
+          },
+          child: Text('Push To Page'),
         ),
-      )
+      ),
     );
   }
 }
